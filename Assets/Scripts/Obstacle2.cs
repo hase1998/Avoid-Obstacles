@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle2 : MonoBehaviour
 {
     public float minSize = 0.5f;
     public float maxSize = 2f;
@@ -8,7 +8,6 @@ public class Obstacle : MonoBehaviour
     public float minSpeed = 50f;
     public float maxSpeed = 150f;
     public GameObject explosionEffect;
-    public float obstacleMaxSpeed = 300f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,15 +27,6 @@ public class Obstacle : MonoBehaviour
     void Update()
     {
 
-    }
-
-    void FixedUpdate()
-    {
-        float currentSpeed = rb.linearVelocity.magnitude;
-        if (currentSpeed > obstacleMaxSpeed)
-        {
-            rb.linearVelocity = rb.linearVelocity.normalized * obstacleMaxSpeed;
-        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

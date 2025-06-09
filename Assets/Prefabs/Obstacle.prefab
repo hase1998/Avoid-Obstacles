@@ -186,4 +186,5 @@ MonoBehaviour:
   maxSize: 3
   minSpeed: 200
   maxSpeed: 400
-  explosionEffect: {fileID: 1522436398491887891, guid: 37f155c3739af2a42997225676631a0b, type: 3}
+  explosionEffect: {fileID: 198716957148906575, guid: 1f61335749de51f4bade18c2d08ba2c6, type: 3}
+  obstacleMaxSpeed: 7

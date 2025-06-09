@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class Player2Controller : MonoBehaviour
 {
     private float elapsedTime = 0f;
     private float score = 0f;
@@ -13,13 +13,10 @@ public class PlayerController : MonoBehaviour
     private Button restartButton;
 
     public UIDocument uiDocument;
-    public GameObject boosterFlame;
+    
     public float thrustForce = 3f;
     Rigidbody2D rb;
     public GameObject explosionEffect;
-    public GameObject borderParent;
-    public InputAction moveForward;
-    public InputAction lookPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,8 +27,6 @@ public class PlayerController : MonoBehaviour
         restartButton.style.display = DisplayStyle.None;
         highScoreText.style.display = DisplayStyle.None;
         restartButton.clicked += ReloadScene;
-        moveForward.Enable();
-        lookPosition.Enable(); 
     }
 
 
@@ -50,11 +45,11 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        if (moveForward.IsPressed())
+        if (Mouse.current.leftButton.isPressed)
         {
             // Get the mouse position in world coordinates
             // and calculate the direction to the mouse position
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(lookPosition.ReadValue<Vector2>());
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
             mousePos.z = 0; // Set z to 0 for 2D
             Vector2 direction = (mousePos - transform.position).normalized;
 
@@ -64,22 +59,11 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
-        if (moveForward.WasPressedThisFrame())
-        {
-            boosterFlame.SetActive(true);
-        }
-        else if (moveForward.WasReleasedThisFrame())
-        {
-            boosterFlame.SetActive(false);
-        }
-
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);
-        borderParent.SetActive(false);
         Instantiate(explosionEffect, transform.position, transform.rotation);
         restartButton.style.display = DisplayStyle.Flex;
         UpdateHighScore();
